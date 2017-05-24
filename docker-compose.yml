@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    nginx:
+      build: ./nginx
+      ports:
+        - "80:80"
+      networks:
+        - flask_network
+      restart: always
+      volumes:
+        - ./flask/project/static:/usr/share/nginx/html/static
+      depends_on:
+        - flask
+    flask:
+      build: ./flask
+      restart: always
+      expose:
+        - "8000"
+      networks:
+        - flask_network
+      volumes:
+        - ./flask:/usr/src/app:ro
+      command: gunicorn -w 1 -b :8000 project:app
+
+networks:
+  flask_network:
