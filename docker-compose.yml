@@ -3,6 +3,7 @@ version: '3'
 services:
     nginx:
       build: ./nginx
+      container_name: nginx
       ports:
         - "80:80"
       networks:
@@ -14,14 +15,29 @@ services:
         - flask
     flask:
       build: ./flask
+      container_name: flask
       restart: always
-      expose:
-        - "8000"
       networks:
         - flask_network
       volumes:
         - ./flask:/usr/src/app:ro
+      depends_on:
+        - postgres
       command: gunicorn -w 1 -b :8000 project:app
+    postgres:
+      build: ./postgres
+      container_name: postgres
+      restart: always
+      networks:
+        - flask_network
+      environment:
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=my_db
+      volumes:
+        - data:/var/lib/postgresql/data
+
+volumes:
+  data:
 
 networks:
   flask_network:
