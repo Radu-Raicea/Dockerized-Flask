@@ -35,7 +35,7 @@ services:
         - postgres
       links:
         - postgres
-      command: gunicorn --worker-class eventlet -w 4 -b 0.0.0.0:8000 run:app
+      command: gunicorn --worker-class eventlet -w 4 -b 0.0.0.0:8000 manage:app
 
     nginx:
       build: ./nginx

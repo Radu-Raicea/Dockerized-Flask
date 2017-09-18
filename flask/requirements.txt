@@ -1,5 +1,8 @@
 flask==0.12.2
 gunicorn==19.7.1
 psycopg2==2.7.1
-Flask-SQLAlchemy
+Flask-SQLAlchemy==2.2
 eventlet==0.21.0
+flask-script==2.0.5
+coverage==4.4.1
+flask_testing==0.6.2
