@@ -1,43 +1,57 @@
+# --------------------------------------------------------------------------
+# When 'docker-compose up --build' is run, this file is executed.
+#
+# Its purpose is to run 3 containers (nginx, flask and postgres) and
+# attach them together in a common network with shared volumes.
+# --------------------------------------------------------------------------
+
 version: '3'
 
 services:
+    postgres:
+      build: ./postgres
+      container_name: postgres
+      networks:
+        - net
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      volumes:
+        - postgres:/var/lib/postgresql/data
+
+    flask:
+      build: ./flask
+      container_name: flask
+      volumes:
+        - ./flask:/usr/src/app
+      networks:
+        - net
+      environment:
+        - APP_SETTINGS=config.DevelopmentConfig
+        - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/db_dev
+        - DATABASE_TEST_URL=postgresql://postgres:postgres@postgres:5432/db_test
+        - SECRET_KEY=dockertutorial
+      depends_on:
+        - postgres
+      links:
+        - postgres
+      command: gunicorn --worker-class eventlet -w 4 -b 0.0.0.0:8000 run:app
+
     nginx:
       build: ./nginx
       container_name: nginx
       ports:
-        - "80:80"
-      networks:
-        - flask_network
+        - 80:80
       restart: always
+      networks:
+        - net
       volumes:
         - ./flask/project/static:/usr/share/nginx/html/static
       depends_on:
         - flask
-    flask:
-      build: ./flask
-      container_name: flask
-      restart: always
-      networks:
-        - flask_network
-      volumes:
-        - ./flask:/usr/src/app:ro
-      depends_on:
-        - postgres
-      command: gunicorn -w 1 -b :8000 project:app
-    postgres:
-      build: ./postgres
-      container_name: postgres
-      restart: always
-      networks:
-        - flask_network
-      environment:
-        - POSTGRES_PASSWORD=postgres
-        - POSTGRES_DB=my_db
-      volumes:
-        - data:/var/lib/postgresql/data
 
 volumes:
-  data:
+  postgres:
 
 networks:
-  flask_network:
+  net:
