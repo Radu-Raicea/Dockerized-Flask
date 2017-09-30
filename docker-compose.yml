@@ -11,6 +11,8 @@ services:
     postgres:
       build: ./postgres
       container_name: postgres
+      ports:
+        - 2345:5432
       networks:
         - net
       environment:
