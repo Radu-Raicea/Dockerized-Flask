@@ -2,18 +2,15 @@
 # This is the entry point of the Flask application.
 # ------------------------------------------------------
 
-
 from project import create_app, logger
 from flask_script import Manager
 import coverage
 import unittest
 
-
 # The logger should always be used instead of a print(). You need to import it from
 # the project package. If you want to understand how to use it properly and why you
 # should use it, check: http://bit.ly/2nqkupO
 logger.info('Server has started.')
-
 
 # Defines which parts of the code to includ and omit when calculating code coverage.
 COV = coverage.coverage(
@@ -26,10 +23,11 @@ COV = coverage.coverage(
 )
 COV.start()
 
-
 # Creates the Flask application object that we use to initialize things in the app.
 app = create_app()
 
+import project.models
+db.create_all(app=app)
 
 # Initializes the Manager object, which allows us to run terminal commands on the
 # Flask application while it's running.
@@ -80,7 +78,6 @@ def test_one(test_file):
         return 0
     else:
         return 1
-
 
 # Starts the Flask app.
 if __name__ == '__main__':
