@@ -2,7 +2,7 @@
 # This is the entry point of the Flask application.
 # ------------------------------------------------------
 
-from project import create_app, logger
+from project import create_app, logger, db
 from flask_script import Manager
 import coverage
 import unittest
