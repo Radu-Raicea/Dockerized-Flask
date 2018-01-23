@@ -1,7 +1,12 @@
-# Dockerized Flask
-Dockerized web app using NGINX, Flask and PostgreSQL
-
-[![Build Status](https://travis-ci.org/Radu-Raicea/Dockerized-Flask.svg?branch=master)](https://travis-ci.org/Radu-Raicea/Dockerized-Flask)
+<p align="center">
+    <img src="dockerized_logo.png" alt="logo" width="800px">
+</p>
+<p align="center">
+    Dockerized web app template using NGINX, Flask, and PostgreSQL.
+</p>
+<p align="center">
+    <a href="https://travis-ci.org/Radu-Raicea/Dockerized-Flask"><img src="https://travis-ci.org/Radu-Raicea/Dockerized-Flask.svg?branch=master" alt="Travis" /></a>
+</p>
 
 
     .
