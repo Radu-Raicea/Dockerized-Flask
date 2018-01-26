@@ -10,41 +10,40 @@
 
 
     .
+    ├── LICENSE
+    ├── README.md
     ├── docker-compose.yml
+    ├── dockerized_logo.png
     ├── flask
-    │   ├── config.py
     │   ├── Dockerfile
+    │   ├── config.py
     │   ├── manage.py
-    │   ├── requirements.txt
     │   ├── project
     │   │   ├── __init__.py
+    │   │   ├── controllers
+    │   │   │   ├── __init__.py
+    │   │   │   └── routes.py
     │   │   ├── models
     │   │   │   ├── __init__.py
-    │   │   │   └── db_models.py
-    │   │   ├── services
-    │   │   │   └── __init__.py
+    │   │   │   └── names.py
     │   │   ├── static
     │   │   │   ├── css
     │   │   │   ├── img
     │   │   │   └── js
-    │   │   ├── templates
-    │   │   │   └── index.html
-    │   │   └── website
-    │   │       ├── __init__.py
-    │   │       └── views.py
+    │   │   └── templates
+    │   │       └── index.html
+    │   ├── requirements.txt
     │   └── tests
-    │       ├── base_website.py
     │       ├── __init__.py
     │       ├── test_configs.py
     │       └── test_website.py
     ├── nginx
-    │   ├── app.conf
     │   ├── Dockerfile
+    │   ├── app.conf
     │   └── nginx.conf
-    ├── postgres
-    │   ├── create.sql
-    │   └── Dockerfile
-    └── README.md
+    └── postgres
+        ├── Dockerfile
+        └── create.sql
 
 
 ---

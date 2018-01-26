@@ -1,17 +1,19 @@
-# --------------------------------------------------------------------
-# This file tests the various configurations of the Flask app.
-#
-# It's pretty standard and shouldn't really be modified, unless you
-# add new configurations.
-# --------------------------------------------------------------------
+# -*- coding: utf-8 -*-
 
+"""
+This file tests the various configurations of the Flask app.
+
+It's pretty standard and shouldn't really be modified, unless you add
+new configurations.
+"""
 
 import os
 import unittest
+
 from flask import current_app
 from flask_testing import TestCase
-from project import create_app
 
+from project import create_app
 
 app = create_app()
 
@@ -53,7 +55,6 @@ class TestProductionConfig(TestCase):
         self.assertTrue(app.config['SECRET_KEY'] == os.getenv('SECRET_KEY'))
         self.assertFalse(app.config['DEBUG'])
         self.assertFalse(app.config['TESTING'])
-
 
 if __name__ == '__main__':
     unittest.main()
